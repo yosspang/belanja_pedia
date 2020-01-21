@@ -32,13 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _get();
-  }
-
-  void _get() async {
-    setState(() {
-      response = apiService.hello();
-    });
   }
 
   @override
