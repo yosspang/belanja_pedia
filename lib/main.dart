@@ -27,6 +27,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ApiService apiService = ApiService();
+  bool test = true;
+  String response;
+  @override
+  void initState() {
+    super.initState();
+    _get();
+  }
+
+  void _get() async {
+    setState(() {
+      response = apiService.hello();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
           else if (snapshot.hasError)
             return Text(snapshot.error);
           else
-            return Text("wait for data");
+            return CircularProgressIndicator();
         },
       )),
     );
