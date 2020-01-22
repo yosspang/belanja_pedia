@@ -11,7 +11,7 @@ import 'package:belanja_pedia/main.dart';
 
 void main() {
   group('Validation Input', () {
-    bool a = MyHomePage().createState().test;
+    bool a = true;
 
     test('get Hello world', () {
       expect(a, true);
