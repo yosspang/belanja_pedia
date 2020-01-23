@@ -11,9 +11,7 @@ import 'package:belanja_pedia/src/bloc/productsBloc.dart';
 import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'model/app_state_model.dart';
 import 'product_row_item.dart';
 
 class ProductListTab extends StatelessWidget {
