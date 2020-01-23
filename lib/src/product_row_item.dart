@@ -32,9 +32,14 @@ class ProductRowItem extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.asset(
-              product.image,
-              fit: BoxFit.cover,
+            // child: Image.asset(
+            //   product.image,
+            //   fit: BoxFit.cover,
+            //   width: 76,
+            //   height: 76,
+            // ),
+            child: Image.network(
+              'http://192.168.43.251:42261/api/products/image/${product.image}',
               width: 76,
               height: 76,
             ),
