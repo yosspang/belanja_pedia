@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
-  var color = const Color(0xFF50B154);
+  final color = const Color(0xFF50B154);
 
   Widget logo() {
     return Image.asset(
