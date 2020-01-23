@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Chart extends StatelessWidget {
+class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('Cart');

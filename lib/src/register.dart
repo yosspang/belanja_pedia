@@ -1,14 +1,66 @@
 import 'package:flutter/material.dart';
 import './login.dart';
+import './dashboard.dart';
+import '../api_service.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  _Register createState() => _Register();
+}
+
+class _Register extends State<Register> {
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _firstname = TextEditingController();
+  TextEditingController _lastname = TextEditingController();
+  TextEditingController _address = TextEditingController();
+  bool _showPassword = false;
+
+  void submit() async {
+    String email = _email.text;
+    String password = _password.text;
+    String firstname = _firstname.text;
+    String lastname = _lastname.text;
+    String address = _address.text;
+
+    ApiService apiService = ApiService();
+    var register = await apiService.register(
+        email, password, firstname, lastname, address);
+
+    if (await register['message'] == "username already taken") {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Alert Dialog"),
+              content: Text("Email already taken"),
+              actions: [
+                FlatButton(
+                  child: Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+      );
+    }
+  }
+
   Widget buttonLogin() {
     return RaisedButton(
         child: Text(
           "Register",
           style: TextStyle(fontSize: 20),
         ),
-        onPressed: () {},
+        onPressed: () {
+          submit();
+        },
         color: Colors.green,
         textColor: Colors.white,
         padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
@@ -33,6 +85,7 @@ class Register extends StatelessWidget {
                 return null;
               },
               keyboardType: TextInputType.emailAddress,
+              controller: _email,
               decoration: InputDecoration(
                   hintText: 'Enter Email',
                   border: OutlineInputBorder(
@@ -51,9 +104,20 @@ class Register extends StatelessWidget {
                 }
                 return null;
               },
+              obscureText: true,
               keyboardType: TextInputType.emailAddress,
+              controller: _password,
               decoration: InputDecoration(
                   hintText: 'Enter Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: this._showPassword ? Colors.green : Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() => this._showPassword = !this._showPassword);
+                    },
+                  ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32))),
             ),
@@ -70,6 +134,7 @@ class Register extends StatelessWidget {
                 }
                 return null;
               },
+              controller: _firstname,
               decoration: InputDecoration(
                   hintText: 'Enter First Name',
                   border: OutlineInputBorder(
@@ -88,6 +153,7 @@ class Register extends StatelessWidget {
                 }
                 return null;
               },
+              controller: _lastname,
               decoration: InputDecoration(
                   hintText: 'Enter Last Name',
                   border: OutlineInputBorder(
@@ -106,6 +172,7 @@ class Register extends StatelessWidget {
                 }
                 return null;
               },
+              controller: _address,
               decoration: InputDecoration(
                   hintText: 'Enter Address',
                   border: OutlineInputBorder(
