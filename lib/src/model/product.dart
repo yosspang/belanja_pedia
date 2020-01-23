@@ -1,34 +1,49 @@
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final products = productsFromJson(jsonString);
 
-enum Category {
-  all,
-  accessories,
-  clothing,
-  home,
-}
+import 'dart:convert';
 
-class Product {
-  const Product({
-    @required this.category,
-    @required this.id,
-    @required this.isFeatured,
-    @required this.name,
-    @required this.price,
-  })  : assert(category != null, 'category must not be null'),
-        assert(id != null, 'id must not be null'),
-        assert(isFeatured != null, 'isFeatured must not be null'),
-        assert(name != null, 'name must not be null'),
-        assert(price != null, 'price must not be null');
+List<Products> productsFromJson(String str) => List<Products>.from(json.decode(str).map((x) => Products.fromJson(x)));
 
-  final Category category;
-  final int id;
-  final bool isFeatured;
-  final String name;
-  final int price;
+String productsToJson(List<Products> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  String get assetName => '$id-0.jpg';
-  String get assetPackage => 'shrine_images';
+class Products {
+    String id;
+    int productId;
+    String image;
+    String name;
+    int price;
+    String description;
+    int quantity;
 
-  @override
-  String toString() => '$name (id=$id)';
+    Products({
+        this.id,
+        this.productId,
+        this.image,
+        this.name,
+        this.price,
+        this.description,
+        this.quantity,
+    });
+
+    factory Products.fromJson(Map<String, dynamic> json) => Products(
+        id: json["_id"],
+        productId: json["id"],
+        image: json["image"],
+        name: json["name"],
+        price: json["price"],
+        description: json["description"],
+        quantity: json["quantity"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "id": productId,
+        "image": image,
+        "name": name,
+        "price": price,
+        "description": description,
+        "quantity": quantity,
+    };
 }

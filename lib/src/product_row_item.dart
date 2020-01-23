@@ -13,7 +13,7 @@ class ProductRowItem extends StatelessWidget {
     this.lastItem,
   });
 
-  final Product product;
+  final Products product;
   final int index;
   final bool lastItem;
 
@@ -33,8 +33,7 @@ class ProductRowItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Image.asset(
-              product.assetName,
-              package: product.assetPackage,
+              product.image,
               fit: BoxFit.cover,
               width: 76,
               height: 76,
@@ -63,8 +62,8 @@ class ProductRowItem extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              final model = Provider.of<AppStateModel>(context);
-              model.addProductToCart(product.id);
+              // final model = Provider.of<AppStateModel>(context);
+              // model.addProductToCart(product.id);
             },
             child: const Icon(
               CupertinoIcons.plus_circled,
