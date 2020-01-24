@@ -36,7 +36,7 @@ class ProductRowItem extends StatelessWidget {
             //   height: 76,
             // ),
             child: Image.network(
-              'http://192.168.43.251:42261/api/products/image/${product.image}',
+              'http://belanja-pedia-api.herokuapp.com/api/products/image/${product.image}',
               width: 76,
               height: 76,
             ),
