@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-
-// import 'model/app_state_model.dart';
 import 'model/product.dart';
 import 'styles.dart';
 
@@ -32,9 +29,14 @@ class ProductRowItem extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.asset(
-              product.image,
-              fit: BoxFit.cover,
+            // child: Image.asset(
+            //   product.image,
+            //   fit: BoxFit.cover,
+            //   width: 76,
+            //   height: 76,
+            // ),
+            child: Image.network(
+              'http://192.168.43.251:42261/api/products/image/${product.image}',
               width: 76,
               height: 76,
             ),
