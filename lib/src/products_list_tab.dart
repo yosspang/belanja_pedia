@@ -1,12 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class ProductsListTab extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(body: Text('products page'));
-//   }
-// }
-
 import 'package:belanja_pedia/src/bloc/productsBloc.dart';
 import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +34,6 @@ class ProductListTab extends StatelessWidget {
                             lastItem: index == snapshot.data.length - 1,
                           );
                         }
-
                         return null;
                       },
                     ),

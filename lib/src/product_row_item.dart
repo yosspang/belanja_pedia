@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'model/product.dart';
 import 'styles.dart';
+import './cart.dart';
 
 class ProductRowItem extends StatelessWidget {
   const ProductRowItem({
@@ -29,12 +30,6 @@ class ProductRowItem extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            // child: Image.asset(
-            //   product.image,
-            //   fit: BoxFit.cover,
-            //   width: 76,
-            //   height: 76,
-            // ),
             child: Image.network(
               'http://belanja-pedia-api.herokuapp.com/api/products/image/${product.image}',
               width: 76,
@@ -64,8 +59,10 @@ class ProductRowItem extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              // final model = Provider.of<AppStateModel>(context);
-              // model.addProductToCart(product.id);
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Cart()),
+            );
             },
             child: const Icon(
               CupertinoIcons.plus_circled,
