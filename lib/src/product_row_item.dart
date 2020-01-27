@@ -1,19 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'bloc/productsBloc.dart';
 import 'model/product.dart';
 import 'styles.dart';
 import './cart.dart';
 
-class ProductRowItem extends StatelessWidget {
+class ProductRowItem extends StatefulWidget {
   const ProductRowItem({
     this.index,
     this.product,
     this.lastItem,
+    this.length
   });
 
   final Products product;
   final int index;
   final bool lastItem;
+  final int length;
+
+  @override
+  ProductRowItemState createState() => ProductRowItemState();
+}
+
+class ProductRowItemState extends State<ProductRowItem> {
+
+  int quantity;
+
+  addToCart(index, int productId, context) async{
+    print(productId);
+    ProductsBloc productsBloc = ProductsBloc();
+    final response = await productsBloc.addToCart(productId);
+    print(response['statusCode']);
+    print('quantity dari bloc ${response['body']['quantity']}');
+    
+    print('quantity $quantity');
+    if(response['statusCode'] == 200) {
+      // bloc.createList(index, widget.length);
+      // int quantity = bloc.currentQuantity[index];
+      // print('current $quantity');
+      // await bloc.currentQty(index, quantity+1);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Cart()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +62,7 @@ class ProductRowItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Image.network(
-              'http://belanja-pedia-api.herokuapp.com/api/products/image/${product.image}',
+              'http://belanja-pedia-api.herokuapp.com/api/products/image/${widget.product.image}',
               width: 76,
               height: 76,
             ),
@@ -44,12 +75,12 @@ class ProductRowItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    product.name,
+                    widget.product.name,
                     style: Styles.productRowItemName,
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Text(
-                    '\$${product.price}',
+                    '\$${widget.product.price}',
                     style: Styles.productRowItemPrice,
                   )
                 ],
@@ -59,10 +90,7 @@ class ProductRowItem extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Cart()),
-            );
+              addToCart(widget.index, widget.product.id, context);
             },
             child: const Icon(
               CupertinoIcons.plus_circled,
@@ -74,7 +102,7 @@ class ProductRowItem extends StatelessWidget {
       ),
     );
 
-    if (lastItem) {
+    if (widget.lastItem) {
       return row;
     }
 

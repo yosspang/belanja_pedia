@@ -32,6 +32,7 @@ class ProductListTab extends StatelessWidget {
                             index: index,
                             product: snapshot.data[index],
                             lastItem: index == snapshot.data.length - 1,
+                            length: snapshot.data.length
                           );
                         }
                         return null;
