@@ -6,14 +6,9 @@ import 'styles.dart';
 import './cart.dart';
 
 class ProductRowItem extends StatefulWidget {
-  const ProductRowItem({
-    this.index,
-    this.product,
-    this.lastItem,
-    this.length
-  });
+  const ProductRowItem({this.index, this.product, this.lastItem, this.length});
 
-  final Products product;
+  final product;
   final int index;
   final bool lastItem;
   final int length;
@@ -23,18 +18,17 @@ class ProductRowItem extends StatefulWidget {
 }
 
 class ProductRowItemState extends State<ProductRowItem> {
-
   int quantity;
 
-  addToCart(index, int productId, context) async{
+  addToCart(index, int productId, context) async {
     print(productId);
     ProductsBloc productsBloc = ProductsBloc();
     final response = await productsBloc.addToCart(productId);
     print(response['statusCode']);
     print('quantity dari bloc ${response['body']['quantity']}');
-    
+
     print('quantity $quantity');
-    if(response['statusCode'] == 200) {
+    if (response['statusCode'] == 200) {
       // bloc.createList(index, widget.length);
       // int quantity = bloc.currentQuantity[index];
       // print('current $quantity');
