@@ -18,9 +18,6 @@ class ProductListTab extends StatelessWidget {
             return CustomScrollView(
               semanticChildCount: snapshot.data.length,
               slivers: <Widget>[
-                const CupertinoSliverNavigationBar(
-                  largeTitle: Text('Belanja Pedia'),
-                ),
                 SliverSafeArea(
                   top: false,
                   minimum: const EdgeInsets.only(top: 8),

@@ -39,4 +39,17 @@ class ProductApiProvider {
     final cartList = cartsFromJson(carts);
     return cartList;
   }
+
+  Future updateQuantity(int id, String counter) async {
+    print('id $id dan counter $counter di api provider');
+    final productId = id.toString();
+    Response response;
+    response = await client.put("http://belanja-pedia-api.herokuapp.com/api/cart", body: {
+      "product_id": productId,
+      "counter": counter
+    });
+    final res = jsonDecode(response.body);
+    print(res);
+    return res;
+  }
 }

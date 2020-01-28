@@ -1,6 +1,5 @@
 import 'package:belanja_pedia/src/account_tab.dart';
 import 'package:belanja_pedia/src/products_list_tab.dart';
-import 'package:belanja_pedia/src/search_tab.dart';
 import './cart.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class Dashboard extends StatefulWidget {
 
 class _Dashboard extends State<Dashboard> {
   int _currentIndex = 0;
-  final List<Widget> _children = [ProductListTab(), SearchTab(), Cart()];
+  final List<Widget> _children = [ProductListTab(), Cart(), AccountTab()];
 
   void onTabTapped(int index) {
     setState(() {
@@ -36,15 +35,11 @@ class _Dashboard extends State<Dashboard> {
             title: new Text('Products'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.search),
-            title: new Text('Search'),
-          ),
-          BottomNavigationBarItem(
             icon: new Icon(Icons.add_shopping_cart),
             title: new Text('Cart'),
           ),
-          // BottomNavigationBarItem(
-          //     icon: new Icon(Icons.person), title: new Text('Account')),
+          BottomNavigationBarItem(
+              icon: new Icon(Icons.person), title: new Text('Account')),
         ],
         selectedItemColor: Colors.green,
       ),

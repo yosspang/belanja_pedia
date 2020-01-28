@@ -15,30 +15,9 @@ class Cart extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<Products>> snapshot) {
           if (snapshot.hasData) {
-            // return CustomScrollView(
-            //   semanticChildCount: snapshot.data.length,
-            //   slivers: <Widget>[
-            //     SliverSafeArea(
-            //       top: false,
-            //       minimum: const EdgeInsets.only(top: 8),
-            //       sliver: SliverList(
-            //         delegate: SliverChildBuilderDelegate(
-            //           (context, index) {
-            //             if (index < snapshot.data.length) {
-            print('ada di cart');
             return CartRow(
-                // index: index,
-                product: snapshot,
-                // lastItem: index == snapshot.data.length - 1,
-                length: snapshot.data.length);
-            // }
-            // return null;
-            // }
-            // ),
-            // ),
-            // )
-            // ],
-            // );
+              product: snapshot,
+              length: snapshot.data.length);
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }

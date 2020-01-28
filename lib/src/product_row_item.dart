@@ -18,26 +18,24 @@ class ProductRowItem extends StatefulWidget {
 }
 
 class ProductRowItemState extends State<ProductRowItem> {
+  PageController pageController;
+  int currentSlide = 1;
   int quantity;
+  final images = ["assets/ads-asus.jpg", "ads-furniture.jpg", "ads-indomie.png", "ads-shopee.jpg", "ads-zalora.jpeg"];
+
+  @override
+  void initState() {
+    pageController = PageController(
+      initialPage: currentSlide, //SLIDE YANG AKAN DISOROT BERDASARKAN VALUE DARI CURRENT SLIDE
+      keepPage: false,
+      viewportFraction: 0.5,
+    );
+    super.initState();
+  }
 
   addToCart(index, int productId, context) async {
-    print(productId);
     ProductsBloc productsBloc = ProductsBloc();
-    final response = await productsBloc.addToCart(productId);
-    print(response['statusCode']);
-    print('quantity dari bloc ${response['body']['quantity']}');
-
-    print('quantity $quantity');
-    if (response['statusCode'] == 200) {
-      // bloc.createList(index, widget.length);
-      // int quantity = bloc.currentQuantity[index];
-      // print('current $quantity');
-      // await bloc.currentQty(index, quantity+1);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Cart()),
-      );
-    }
+    await productsBloc.addToCart(productId);
   }
 
   @override
@@ -100,8 +98,41 @@ class ProductRowItemState extends State<ProductRowItem> {
       return row;
     }
 
+    Widget slideShow(int index) {
+      return Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              images[index]
+            )
+          )
+        ),
+      );
+    }
+
+    Widget ads() {
+      return SafeArea(
+        child: Expanded(
+          child: PageView.builder(
+            controller: pageController,
+            onPageChanged: (value) {
+              setState(() {
+                currentSlide = value;
+              });
+            },
+            itemBuilder: (BuildContext context, int index) => slideShow(index),
+            itemCount: 4,
+          ),
+        ),
+      );
+    }
+
+    
+
     return Column(
       children: <Widget>[
+        ads(),
         row,
         Padding(
           padding: const EdgeInsets.only(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'model/product.dart';
 import 'styles.dart';
+import 'bloc/productsBloc.dart';
 
 class CartRow extends StatefulWidget {
   const CartRow({this.product, this.length});
@@ -15,21 +16,13 @@ class CartRow extends StatefulWidget {
 }
 
 class CartRowState extends State<CartRow> {
-  List<int> number = List();
-  // List<int> quantityState = List();
-  int quantityState;
+  final color = const Color(0xFF50B154);
+  int sum;
 
-  // quantity(index) {
-  //   setState(() {
-  //     quantityState[index] = widget.product.data[index].quantity;
-  //   });
-  //   return quantityState[index];
-  // }
-
-  void increment(int index, stok) {
-    if (quantityState == stok) {
+  void increment(int id, stok) async{
+    if (bloc.currentQuantity == stok) {
       setState(() {
-        quantityState = stok;
+        bloc.currentQuantity = stok;
       });
       // bloc.currentQty(index, bloc.currentQuantity[index]);
       showDialog(
@@ -49,50 +42,28 @@ class CartRowState extends State<CartRow> {
             );
           });
     } else {
-      setState(() {
-        quantityState++;
-      });
-      // bloc.currentQty(index, bloc.currentQuantity[index]);
-      print('tambah $quantityState');
+      await bloc.updateQuantity(id, "plus");
     }
   }
 
-  void decrement(int index) {
-    if (quantityState == 1) {
-      setState(() {
-        quantityState = 1;
-      });
-      // bloc.currentQty(index, bloc.currentQuantity[index]);
-    } else {
-      setState(() {
-        quantityState--;
-      });
-      // bloc.currentQty(index, bloc.currentQuantity[index]);
-    }
+  void decrement(int id) async{
+    print(widget.product.data);
 
-    print(quantityState);
+    await bloc.updateQuantity(id, "minus");
   }
 
   @override
   Widget build(BuildContext context) {
-    print('ada di cart row');
-    final color = const Color(0xFF50B154);
 
     Widget row() {
       return ListView.builder(
           itemCount: widget.length,
           itemBuilder: (BuildContext context, int index) {
             Products product = widget.product.data[index];
-            print('product qty ${product.quantity}');
+            int quantity = product.quantity;
+            bloc.currentQuantity = quantity;
+            // var price = product.price;
 
-            // setState(() {
-            quantityState = product.quantity;
-            // });
-
-            print('qty state ${quantityState}');
-            // if (quantityState.length < widget.length) {
-            //   quantityState.add(1);
-            // }
             return SafeArea(
               top: false,
               bottom: false,
@@ -133,7 +104,7 @@ class CartRowState extends State<CartRow> {
                             children: <Widget>[
                               InkWell(
                                 onTap: () {
-                                  decrement(index);
+                                  decrement(product.id);
                                 },
                                 child: Container(
                                     width: 40,
@@ -154,7 +125,7 @@ class CartRowState extends State<CartRow> {
                                   padding: EdgeInsets.only(right: 15)),
                               Center(
                                 child: Text(
-                                  '$quantityState',
+                                  '${bloc.currentQuantity}',
                                   style: TextStyle(fontSize: 30),
                                 ),
                               ),
@@ -162,7 +133,7 @@ class CartRowState extends State<CartRow> {
                                   padding: EdgeInsets.only(right: 15)),
                               InkWell(
                                 onTap: () {
-                                  increment(index, product.stock);
+                                  increment(product.id, product.stock);
                                 },
                                 child: Container(
                                     width: 40,
@@ -199,26 +170,60 @@ class CartRowState extends State<CartRow> {
     }
 
     Widget buy() {
-      print('ada di buy');
-      return Align(
-          alignment: Alignment.bottomRight,
-          child: RaisedButton(
-              child: Text(
-                "Buy",
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {},
-              color: Colors.green,
-              textColor: Colors.white,
-              padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-              splashColor: Colors.grey,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0))));
+      return Column(
+        children: <Widget>[
+          Container(
+            width: 450,
+            decoration: BoxDecoration(
+              border: Border(
+              top: BorderSide(width: 1.0, color: color),
+            )),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 10, top: 10, left: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  '${widget.length} products',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Total: ',
+                    style: TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      'Rp$sum ',
+                      style: TextStyle(fontSize: 16, color: Colors.red),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: RaisedButton(
+                        child: Text(
+                          "Buy",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {},
+                        color: Colors.green,
+                        textColor: Colors.white,
+                        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        splashColor: Colors.grey,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)))),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      );
     }
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('My Carts'),
+          title: Text('My Carts(${widget.length})'),
           backgroundColor: color,
         ),
         body: Column(
