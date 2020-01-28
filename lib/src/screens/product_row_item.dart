@@ -1,7 +1,6 @@
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'bloc/productsBloc.dart';
-import 'model/product.dart';
 import 'styles.dart';
 import './cart.dart';
 

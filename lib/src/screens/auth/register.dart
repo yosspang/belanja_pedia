@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './login.dart';
-import './dashboard.dart';
-import '../api_service.dart';
+import 'package:belanja_pedia/src/screens/dashboard.dart';
+import 'package:belanja_pedia/api_service.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -9,46 +9,54 @@ class Register extends StatefulWidget {
 }
 
 class _Register extends State<Register> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _firstname = TextEditingController();
   TextEditingController _lastname = TextEditingController();
   TextEditingController _address = TextEditingController();
   bool _showPassword = false;
+  bool _validate = false;
 
   void submit() async {
-    String email = _email.text;
-    String password = _password.text;
-    String firstname = _firstname.text;
-    String lastname = _lastname.text;
-    String address = _address.text;
+    if (_formKey.currentState.validate()) {
+      String email = _email.text;
+      String password = _password.text;
+      String firstname = _firstname.text;
+      String lastname = _lastname.text;
+      String address = _address.text;
 
-    ApiService apiService = ApiService();
-    var register = await apiService.register(
-        email, password, firstname, lastname, address);
+      ApiService apiService = ApiService();
+      var register = await apiService.register(
+          email, password, firstname, lastname, address);
 
-    if (await register['message'] == "username already taken") {
-      return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Alert Dialog"),
-              content: Text("Email already taken"),
-              actions: [
-                FlatButton(
-                  child: Text("Close"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
+      if (await register['message'] == "username already taken") {
+        return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Alert Dialog"),
+                content: Text("Email already taken"),
+                actions: [
+                  FlatButton(
+                    child: Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            });
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Dashboard()),
+        );
+      }
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Dashboard()),
-      );
+      setState(() {
+        _validate = true;
+      });
     }
   }
 
@@ -76,14 +84,9 @@ class _Register extends State<Register> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 50,
+            // height: 60,
             child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+              validator: validateEmail,
               keyboardType: TextInputType.emailAddress,
               controller: _email,
               decoration: InputDecoration(
@@ -96,16 +99,10 @@ class _Register extends State<Register> {
             height: 10,
           ),
           Container(
-            height: 50,
+            // height: 60,
             child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              obscureText: true,
-              keyboardType: TextInputType.emailAddress,
+              validator: validatePassword,
+              obscureText: !this._showPassword,
               controller: _password,
               decoration: InputDecoration(
                   hintText: 'Enter Password',
@@ -126,14 +123,9 @@ class _Register extends State<Register> {
             height: 10,
           ),
           Container(
-            height: 50,
+            // height: 60,
             child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+              validator: validateName,
               controller: _firstname,
               decoration: InputDecoration(
                   hintText: 'Enter First Name',
@@ -145,14 +137,9 @@ class _Register extends State<Register> {
             height: 10,
           ),
           Container(
-            height: 50,
+            // height: 60,
             child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
+              validator: validateName,
               controller: _lastname,
               decoration: InputDecoration(
                   hintText: 'Enter Last Name',
@@ -164,11 +151,11 @@ class _Register extends State<Register> {
             height: 10,
           ),
           Container(
-            height: 50,
+            // height: 60,
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Address must not be empty';
                 }
                 return null;
               },
@@ -186,6 +173,8 @@ class _Register extends State<Register> {
 
   Widget body(context) {
     return Form(
+      key: _formKey,
+      autovalidate: _validate,
       child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.only(left: 24, right: 24),
@@ -215,7 +204,7 @@ class _Register extends State<Register> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Login()),
+                        MaterialPageRoute(builder: (context) => new Login()),
                       );
                     },
                   )
@@ -233,5 +222,38 @@ class _Register extends State<Register> {
     return Scaffold(
       body: body(context),
     );
+  }
+}
+
+String validateEmail(String value) {
+  String pattern =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  RegExp regex = new RegExp(pattern);
+  if (value.isEmpty) {
+    return "Email is required";
+  } else if (!regex.hasMatch(value)) {
+    return "Invalid Email";
+  } else {
+    return null;
+  }
+}
+
+String validatePassword(String value) {
+  if (value.isEmpty) {
+    return "Password is required";
+  } else if (value.length < 6) {
+    return "Password must be 6 character minimum";
+  } else {
+    return null;
+  }
+}
+
+String validateName(String value) {
+  if (value.isEmpty) {
+    return "Field is required";
+  } else if (value.length < 5) {
+    return "Input must be 5 characters minimum";
+  } else {
+    return null;
   }
 }

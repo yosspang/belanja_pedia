@@ -1,4 +1,4 @@
-import 'package:belanja_pedia/src/bloc/productsBloc.dart';
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
 import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +29,10 @@ class ProductListTab extends StatelessWidget {
                       (context, index) {
                         if (index < snapshot.data.length) {
                           return ProductRowItem(
-                            index: index,
-                            product: snapshot.data[index],
-                            lastItem: index == snapshot.data.length - 1,
-                            length: snapshot.data.length
-                          );
+                              index: index,
+                              product: snapshot.data[index],
+                              lastItem: index == snapshot.data.length - 1,
+                              length: snapshot.data.length);
                         }
                         return null;
                       },

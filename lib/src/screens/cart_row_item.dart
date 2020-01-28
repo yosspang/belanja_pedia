@@ -1,5 +1,5 @@
+import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/material.dart';
-import 'model/product.dart';
 import 'styles.dart';
 
 class CartRow extends StatefulWidget {
