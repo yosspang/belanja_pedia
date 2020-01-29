@@ -17,7 +17,10 @@ class CartRow extends StatefulWidget {
 
 class CartRowState extends State<CartRow> {
   final color = const Color(0xFF50B154);
-  int sum;
+  int sum = 0;
+  List allPrice = [];
+  List totalPrice = [];
+  List listProduct = List();
 
   void increment(int id, stok) async{
     if (bloc.currentQuantity == stok) {
@@ -52,17 +55,34 @@ class CartRowState extends State<CartRow> {
     await bloc.updateQuantity(id, "minus");
   }
 
+  jml(index, price) {
+    for(var i = 0; i < index; i++) {
+      sum += allPrice[i];
+    }
+    return sum;
+  }
+
+  void submit(price, data) {
+    totalPrice.add(price);
+    // listProduct.add(data);
+  }
+
   @override
   Widget build(BuildContext context) {
-
+    
     Widget row() {
+      
       return ListView.builder(
           itemCount: widget.length,
           itemBuilder: (BuildContext context, int index) {
             Products product = widget.product.data[index];
             int quantity = product.quantity;
             bloc.currentQuantity = quantity;
-            // var price = product.price;
+            var price = product.price * quantity;
+            allPrice.add(price);
+            // listProduct.add(product as List<Products>);
+            jml(index, price);
+            submit(price, product);
 
             return SafeArea(
               top: false,
@@ -152,11 +172,19 @@ class CartRowState extends State<CartRow> {
                               ),
                               const Padding(
                                   padding: EdgeInsets.only(right: 10)),
-                              Text(
-                                  (product.stock <= 10)
-                                      ? 'Sisa ${product.stock} buah'
-                                      : '',
-                                  style: TextStyle(color: Colors.red)),
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Total $price',
+                                    style: TextStyle(color: Colors.red)
+                                  ),
+                                  Text(
+                                      (product.stock <= 10)
+                                          ? 'Sisa ${product.stock} buah'
+                                          : '',
+                                      style: TextStyle(color: Colors.red)),
+                                ],
+                              ),
                             ],
                           )
                         ],
@@ -205,7 +233,11 @@ class CartRowState extends State<CartRow> {
                           "Buy",
                           style: TextStyle(fontSize: 20),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          print(listProduct);
+                          print(totalPrice);
+                          print(sum);
+                        },
                         color: Colors.green,
                         textColor: Colors.white,
                         padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
