@@ -2,6 +2,7 @@ import 'package:belanja_pedia/src/account_tab.dart';
 import 'package:belanja_pedia/src/products_list_tab.dart';
 import './cart.dart';
 import 'package:flutter/material.dart';
+import './home_page.dart';
 
 class Dashboard extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -11,7 +12,7 @@ class Dashboard extends StatefulWidget {
 
 class _Dashboard extends State<Dashboard> {
   int _currentIndex = 0;
-  final List<Widget> _children = [ProductListTab(), Cart(), AccountTab()];
+  final List<Widget> _children = [HomePage(), Cart(), AccountTab()];
 
   void onTabTapped(int index) {
     setState(() {

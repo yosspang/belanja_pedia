@@ -15,7 +15,8 @@ class ProductListTab extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<Products>> snapshot) {
           if (snapshot.hasData) {
-            return CustomScrollView(
+            return Expanded(
+              child: CustomScrollView(
               semanticChildCount: snapshot.data.length,
               slivers: <Widget>[
                 SliverSafeArea(
@@ -38,6 +39,7 @@ class ProductListTab extends StatelessWidget {
                   ),
                 )
               ],
+            ),
             );
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
