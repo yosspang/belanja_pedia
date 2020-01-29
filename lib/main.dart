@@ -1,5 +1,5 @@
 // import 'package:belanja_pedia/landing_page.dart';
-import 'package:belanja_pedia/src/screens/dashboard.dart';
+// import 'package:belanja_pedia/src/screens/dashboard.dart';
 import 'package:belanja_pedia/src/screens/auth/login.dart';
 
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ ThemeData themeData() {
           borderSide: BorderSide(color: Colors.grey),
           borderRadius: BorderRadius.circular(32)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green),
+          borderSide: BorderSide(color: Colors.green, width: 2.0),
           borderRadius: BorderRadius.circular(32)),
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),

@@ -1,3 +1,4 @@
+import 'package:belanja_pedia/src/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import './login.dart';
 import 'package:belanja_pedia/src/screens/dashboard.dart';
@@ -27,19 +28,20 @@ class _Register extends State<Register> {
       String address = _address.text;
 
       ApiService apiService = ApiService();
-      var register = await apiService.register(
+      UserBloc userBloc = UserBloc();
+      var register = await userBloc.registerUser(
           email, password, firstname, lastname, address);
 
-      if (await register['message'] == "username already taken") {
+      if (await register['message'] == 'Email already taken') {
         return showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Alert Dialog"),
-                content: Text("Email already taken"),
+                title: Text('Alert Dialog'),
+                content: Text('Email already taken'),
                 actions: [
                   FlatButton(
-                    child: Text("Close"),
+                    child: Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -63,7 +65,7 @@ class _Register extends State<Register> {
   Widget buttonLogin() {
     return RaisedButton(
         child: Text(
-          "Register",
+          'Register',
           style: TextStyle(fontSize: 20),
         ),
         onPressed: () {
@@ -230,9 +232,9 @@ String validateEmail(String value) {
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = new RegExp(pattern);
   if (value.isEmpty) {
-    return "Email is required";
+    return 'Email is required';
   } else if (!regex.hasMatch(value)) {
-    return "Invalid Email";
+    return 'Invalid Email';
   } else {
     return null;
   }
@@ -240,9 +242,9 @@ String validateEmail(String value) {
 
 String validatePassword(String value) {
   if (value.isEmpty) {
-    return "Password is required";
+    return 'Password is required';
   } else if (value.length < 6) {
-    return "Password must be 6 character minimum";
+    return 'Password must be 6 character minimum';
   } else {
     return null;
   }
@@ -250,9 +252,9 @@ String validatePassword(String value) {
 
 String validateName(String value) {
   if (value.isEmpty) {
-    return "Field is required";
+    return 'Field is required';
   } else if (value.length < 5) {
-    return "Input must be 5 characters minimum";
+    return 'Input must be 5 characters minimum';
   } else {
     return null;
   }

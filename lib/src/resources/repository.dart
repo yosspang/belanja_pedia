@@ -12,4 +12,8 @@ class Repository {
   Future getCarts(String email) => productApiProvider.getCart(email);
   Future loginUser(String email, String password) =>
       userApiProvider.postLogin(email, password);
+  Future registerUser(String email, String password, String firstName,
+          String lastName, String address) =>
+      userApiProvider.postRegister(
+          email, password, firstName, lastName, address);
 }

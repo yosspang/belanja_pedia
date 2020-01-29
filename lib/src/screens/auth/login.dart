@@ -23,16 +23,16 @@ class _Login extends State<Login> {
       UserBloc userBloc = UserBloc();
       final _response = await userBloc.loginUser(email, password);
       print(_response['message']);
-      if (_response["message"] != 'login success') {
+      if (_response['message'] != 'Login success') {
         return showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Alert Dialog"),
-                content: Text("${_response['message']}"),
+                title: Text('Alert Dialog'),
+                content: Text('${_response['message']}'),
                 actions: [
                   FlatButton(
-                    child: Text("Close"),
+                    child: Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -52,49 +52,15 @@ class _Login extends State<Login> {
         _validate = true;
       });
     }
-
-    // ApiService apiService = ApiService();
-    // var register = await apiService.register(
-    //     email, password, firstname, lastname, address);
-
-    // if (await register['message'] == "username already taken") {
-    //   return showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return AlertDialog(
-    //           title: Text("Alert Dialog"),
-    //           content: Text("Email already taken"),
-    //           actions: [
-    //             FlatButton(
-    //               child: Text("Close"),
-    //               onPressed: () {
-    //                 Navigator.of(context).pop();
-    //               },
-    //             )
-    //           ],
-    //         );
-    //       });
-    // } else {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => Dashboard()),
-    //   );
-    // }
   }
 
   Widget buttonLogin(context) {
     return RaisedButton(
         child: Text(
-          "Login",
+          'Login',
           style: TextStyle(fontSize: 20),
         ),
-        onPressed: () {
-          submit();
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => Dashboard()),
-          // );
-        },
+        onPressed: submit,
         color: Colors.green,
         textColor: Colors.white,
         padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
@@ -201,9 +167,9 @@ String validateEmail(String value) {
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = new RegExp(pattern);
   if (value.isEmpty) {
-    return "Email is required";
+    return 'Email is required';
   } else if (!regex.hasMatch(value)) {
-    return "Invalid Email";
+    return 'Invalid Email';
   } else {
     return null;
   }
@@ -211,9 +177,9 @@ String validateEmail(String value) {
 
 String validatePassword(String value) {
   if (value.isEmpty) {
-    return "Password is required";
+    return 'Password is required';
   } else if (value.length < 6) {
-    return "Password must be 6 character minimum";
+    return 'Password must be 6 character minimum';
   } else {
     return null;
   }
