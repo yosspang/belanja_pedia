@@ -188,11 +188,27 @@ class HomePageState extends State<HomePage> {
         ),
       );
     }
+
+    Widget flashSale() {
+      return Column(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20)
+            ),
+            child: Image.asset(
+              "assets/sale.jpeg",
+              height: 200,
+            ),
+          ),
+        ],
+      );
+    }
     
 
     return Container(
         margin: EdgeInsets.only(top: 30, left: 20, right: 20),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Search(),
             SizedBox(
@@ -203,27 +219,20 @@ class HomePageState extends State<HomePage> {
               height: 40,
             ),
             categories(),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              'Product',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
+            flashSale(),
+            Center(
+              child: Text(
+                'Product',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             ProductListTab(),
-            SizedBox(
-              height: 10,
-            ),
-            // CardEx(),
-            // SizedBox(
-            //   height: 10,
-            // ),
           ],
         )
     );

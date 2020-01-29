@@ -11,6 +11,7 @@ class DetailProduct extends StatelessWidget {
     String image = listProduct.image;
     String description = listProduct.description;
     String categories = listProduct.categories;
+    print(name.length);
 
     Widget body() {
       return Column(
@@ -20,7 +21,7 @@ class DetailProduct extends StatelessWidget {
             height: 350,
             width: double.maxFinite,
             child: Card(
-              elevation: 3,
+              elevation: 1,
               child: Column(
                 children: <Widget>[
                   Image.network(
@@ -38,7 +39,7 @@ class DetailProduct extends StatelessWidget {
                               'Rp$price',
                               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.red),
                             ),
-                            Image.asset("assets/love.png", height: 35,)
+                            Image.asset("assets/love.png", height: 30)
                           ],
                         ),
                         SizedBox(
@@ -51,10 +52,6 @@ class DetailProduct extends StatelessWidget {
                               name,
                               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                              categories,
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-                            )
                           ],
                         ),
                       ],
@@ -66,20 +63,49 @@ class DetailProduct extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0,10,0,0),
+            height: 80,
+            width: double.maxFinite,
+            child: Card(
+              elevation: 1,
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Shipping',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'JNE',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                    )
+                  ],
+                ),
+              )
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0,10,0,0),
             height: 150,
             width: double.maxFinite,
             child: Card(
-              elevation: 3,
+              elevation: 1,
               child: Container(
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: Column(
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           'Description',
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
+                        Text(
+                          categories,
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -97,8 +123,52 @@ class DetailProduct extends StatelessWidget {
                 ),
               )
             ),
-          )
+          ),
+          
         ],
+      );
+    }
+
+    Widget action() {
+      return Container(
+        padding: EdgeInsets.fromLTRB(0,10,0,0),
+        height: 90,
+        width: double.maxFinite,
+        child: Card(
+          elevation: 1,
+          child: Row(
+            
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const Padding(padding: EdgeInsets.only(left: 10)),
+              RaisedButton(
+                child: Text(
+                  "Add To Cart",
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {},
+                color: Colors.red,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                splashColor: Colors.grey,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0))),
+              RaisedButton(
+                child: Text(
+                  "Buy",
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {},
+                color: Colors.green,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                splashColor: Colors.grey,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0))),
+              const Padding(padding: EdgeInsets.only(right: 10)),
+            ],
+          ),
+        ),
       );
     }
 
@@ -110,9 +180,17 @@ class DetailProduct extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       body: Column(
         children: <Widget>[
-          body(),
+          Expanded(
+            flex: 1,
+            child: ListView(
+              children: <Widget>[
+                body()
+              ],
+            ),
+          ),
+          action()
         ],
-      ),
+      )
     );
   }
 }

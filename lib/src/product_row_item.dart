@@ -7,12 +7,10 @@ import 'styles.dart';
 import './detail_product.dart';
 
 class ProductRowItem extends StatefulWidget {
-  const ProductRowItem({this.index, this.product, this.lastItem, this.length});
+  const ProductRowItem({this.product, this.length});
 
   final product;
-  final int index;
-  final bool lastItem;
-  final int length;
+  final length;
 
   @override
   ProductRowItemState createState() => ProductRowItemState();
@@ -28,82 +26,81 @@ class ProductRowItemState extends State<ProductRowItem> {
   @override
   Widget build(BuildContext context) {
 
-    Widget row() {
-      return SafeArea(
-        top: false,
-        bottom: false,
-        minimum: const EdgeInsets.only(
-          left: 16,
-          top: 8,
-          bottom: 8,
-          right: 8,
-        ),
+    Widget products(data) {
+      return Card(
+        elevation: 1.5,
         child: InkWell(
           onTap: () {
-            print(widget.product.categories);
             Navigator.push(
             context,
               MaterialPageRoute(
                 builder: (context) => DetailProduct(),
-                settings: RouteSettings(arguments: widget.product),
+                settings: RouteSettings(arguments: data),
               ),
             );
           },
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            verticalDirection: VerticalDirection.down,
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: Image.network(
-                  'http://belanja-pedia-api.herokuapp.com/api/products/image/${widget.product.image}',
-                  width: 76,
-                  height: 76,
-                ),
+              Image.network(
+                'http://belanja-pedia-api.herokuapp.com/api/products/image/${data.image}',
+                width: 130,
+                height: 150,
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        widget.product.name,
-                        style: Styles.productRowItemName,
-                      ),
-                      const Padding(padding: EdgeInsets.only(top: 8)),
-                      Text(
-                        '\$${widget.product.price}',
-                        style: Styles.productRowItemPrice,
-                      )
-                    ],
-                  ),
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      data.name,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 8)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              'Rp',
+                              style: TextStyle(fontSize: 16, color: Colors.red),
+                            ),
+                            Text(
+                              data.price.toString(),
+                              style: TextStyle(fontSize: 18, color: Colors.red),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          "assets/dots.png",
+                          height: 25,
+                          color: Colors.green,
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  addToCart(widget.index, widget.product.id, context);
-                },
-                child: const Icon(
-                  CupertinoIcons.plus_circled,
-                  semanticLabel: 'Add',
-                  color: Colors.green,
-                ),
-              ),
+              )
             ],
           ),
         )
       );
     }
 
-    // if (widget.lastItem) {
-    //   return row();
-    // }
-
-    return Container(
-        // margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: row()
-      );
+    return GridView.count(
+      primary: true,
+      crossAxisCount: 2,
+      childAspectRatio: 0.65,
+      shrinkWrap: true,
+      children: List.generate(widget.length, (index) {
+        return products(widget.product[index]);
+      }),
+    );
     // );
   }
 }
