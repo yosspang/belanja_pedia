@@ -17,6 +17,10 @@ class Payment extends StatefulWidget{
 }
 
 class PaymentState extends State<Payment> {
+
+  String valueradio = '';
+  // int total = widget.sum + 10000;
+
   Widget body() {
   String firstName = widget.user.firstName;
   String lastName = widget.user.lastName;
@@ -41,6 +45,7 @@ class PaymentState extends State<Payment> {
                       Image.asset(
                         "assets/map.png",
                         height: 35,
+                        color: Colors.green,
                       ),
                       const Padding(padding: EdgeInsets.only(left: 12)),
                       Column(
@@ -76,6 +81,7 @@ class PaymentState extends State<Payment> {
                       Image.asset(
                         "assets/email.png",
                         height: 35,
+                        color: Colors.green,
                       ),
                       const Padding(padding: EdgeInsets.only(left: 12)),
                       Column(
@@ -105,7 +111,7 @@ class PaymentState extends State<Payment> {
           ),
         ),
         Container(
-          height: 400,
+          height: 300,
           width: double.maxFinite,
           child: Card(
             elevation: 5,
@@ -114,18 +120,31 @@ class PaymentState extends State<Payment> {
               child: Column(
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        '${widget.items} items',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      Row(
+                        children: <Widget>[
+                          Image.asset(
+                            "assets/box.png",
+                            height: 28,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 10),
+                          ),
+                          Text(
+                            'Orders',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                        ],
                       ),
+                      Text('Dikirim oleh Belanja Pedia')
                     ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Container(
-                    width: 450,
+                    width: 500,
                     decoration: BoxDecoration(
                       border: Border(
                       top: BorderSide(width: 1.0, color: Colors.grey[200]),
@@ -175,7 +194,7 @@ class PaymentState extends State<Payment> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      Text('JNE'),
+                                      Text('JNE', style: TextStyle(fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                   SizedBox(
@@ -191,7 +210,7 @@ class PaymentState extends State<Payment> {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Text('Pay before 31 Jan'),
+                                      Text('Pay before 31 Jan', style: TextStyle(color: Colors.red),),
                                     ],
                                   )
                                 ],
@@ -210,7 +229,6 @@ class PaymentState extends State<Payment> {
         ),
         Container(
           height: 100,
-          margin: EdgeInsets.only(bottom: 20),
           width: double.maxFinite,
           child: Card(
             elevation: 5,
@@ -222,11 +240,11 @@ class PaymentState extends State<Payment> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'SubTotal',
-                        style: TextStyle(fontSize: 18),
+                        'Subtotal (${widget.items} items)',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                       Text(
-                        subTotal.toString(),
+                        'Rp${subTotal.toString()}',
                         style: TextStyle(fontSize: 18),
                       )
                     ],
@@ -239,7 +257,7 @@ class PaymentState extends State<Payment> {
                     children: <Widget>[
                       Text(
                         'Price Shipping',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                       Text(
                         'Rp10000',
@@ -251,8 +269,137 @@ class PaymentState extends State<Payment> {
               ),
             ),
           ),
+        ),
+        Container(
+          height: 200,
+          width: double.maxFinite,
+          child: Card(
+            elevation: 5,
+            child: Container(
+              margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/bank.png",
+                        height: 35,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                      ),
+                      Text('Payment Method', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 500,
+                    decoration: BoxDecoration(
+                      border: Border(
+                      top: BorderSide(width: 1.0, color: Colors.grey[200]),
+                    )),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Radio(
+                            value: 0,
+                            focusColor: Colors.green,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            onChanged: (value) {
+                              setState(() {
+                                valueradio = value;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Bank',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Radio(
+                            value: 0,
+                            focusColor: Colors.green,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            onChanged: (value) {
+                              setState(() {
+                                valueradio = value;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Credit Card',
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
+                      ),
+                      
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+          ),
         )
       ],
+    );
+  }
+
+  Widget checkout() {
+    int total = widget.sum + 10000;
+    return Container(
+      height: 70,
+      width: double.maxFinite,
+      child: Card(
+        elevation: 1,
+        child: Container(
+          margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Total: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Rp$total',
+                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+                  )
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: RaisedButton(
+                  child: Text(
+                    "Buy",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  splashColor: Colors.grey,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0)))),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -262,6 +409,9 @@ class PaymentState extends State<Payment> {
     print('id di payment ${widget.productId}');
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
           title: Text(
             'Checkout',
             style: TextStyle(color: Colors.black),
@@ -278,7 +428,8 @@ class PaymentState extends State<Payment> {
                   body()
                 ],
               ),
-            )
+            ),
+            checkout()
           ],
         )
     );
