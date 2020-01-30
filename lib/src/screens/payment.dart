@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:belanja_pedia/src/model/user.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,6 @@ class PaymentState extends State<Payment> {
                     ),
                     Column(
                       children: <Widget>[
-                        
                         Text(
                           name,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -47,7 +47,15 @@ class PaymentState extends State<Payment> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(address)
+                        Expanded(
+                          child: AutoSizeText(
+                          address,
+                          style: TextStyle(fontSize: 16),
+                          minFontSize: 16,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        )
                       ],
                     )
                   ],
