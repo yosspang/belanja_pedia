@@ -1,4 +1,4 @@
-import 'package:belanja_pedia/src/bloc/productsBloc.dart';
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
 import 'package:belanja_pedia/src/model/user.dart';
 import 'package:belanja_pedia/src/screens/payment.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,9 +16,9 @@ class PaymentNetwork extends StatelessWidget {
     Stream users = userBloc.userInfo;
 
     return StreamBuilder<Users>(
-      stream: users,
-      builder: (BuildContext context, AsyncSnapshot<Users> snapshot) {
-        if (snapshot.hasData) {
+        stream: users,
+        builder: (BuildContext context, AsyncSnapshot<Users> snapshot) {
+          if (snapshot.hasData) {
             print('has data');
             return Payment(user: snapshot.data, sum: sum, productId: productId);
           } else if (snapshot.hasError) {
@@ -29,4 +29,3 @@ class PaymentNetwork extends StatelessWidget {
         });
   }
 }
-

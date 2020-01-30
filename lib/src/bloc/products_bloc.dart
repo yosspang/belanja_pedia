@@ -7,7 +7,6 @@ class ProductsBloc {
   int sum = 0;
   // List<int> currentQuantity = List<int>();
 
-  
   // createList(lengthQuantity, lengthProduct) {
   //   if(currentQuantity.length < lengthProduct) {
   //     for(int i = 0; i < lengthQuantity; i++) {
@@ -54,4 +53,3 @@ class ProductsBloc {
 }
 
 final bloc = ProductsBloc();
-

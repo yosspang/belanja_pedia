@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import './products_list_tab.dart';
 import './searchBar.dart';
-import './card.dart';
 
 class HomePage extends StatefulWidget {
   @override

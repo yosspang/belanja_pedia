@@ -1,9 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../bloc/productsBloc.dart';
-import '../model/product.dart';
-import 'styles.dart';
+import '../bloc/products_bloc.dart';
 import './detail_product.dart';
 
 class ProductRowItem extends StatefulWidget {
@@ -17,7 +14,6 @@ class ProductRowItem extends StatefulWidget {
 }
 
 class ProductRowItemState extends State<ProductRowItem> {
-
   addToCart(index, int productId, context) async {
     ProductsBloc productsBloc = ProductsBloc();
     await productsBloc.addToCart(productId);
@@ -25,71 +21,72 @@ class ProductRowItemState extends State<ProductRowItem> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget products(data) {
       return Card(
-        elevation: 1.5,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-            context,
-              MaterialPageRoute(
-                builder: (context) => DetailProduct(),
-                settings: RouteSettings(arguments: data),
-              ),
-            );
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            verticalDirection: VerticalDirection.down,
-            children: <Widget>[
-              Image.network(
-                'http://belanja-pedia-api.herokuapp.com/api/products/image/${data.image}',
-                width: 130,
-                height: 150,
-              ),
-              Expanded(
-                child: Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      data.name,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 8)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          elevation: 1.5,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailProduct(),
+                  settings: RouteSettings(arguments: data),
+                ),
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              verticalDirection: VerticalDirection.down,
+              children: <Widget>[
+                Image.network(
+                  'http://belanja-pedia-api.herokuapp.com/api/products/image/${data.image}',
+                  width: 130,
+                  height: 150,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Rp',
-                              style: TextStyle(fontSize: 16, color: Colors.red),
-                            ),
-                            Text(
-                              data.price.toString(),
-                              style: TextStyle(fontSize: 18, color: Colors.red),
-                            ),
-                          ],
+                        Text(
+                          data.name,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        Image.asset(
-                          "assets/dots.png",
-                          height: 25,
-                          color: Colors.green,
+                        const Padding(padding: EdgeInsets.only(top: 8)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Rp',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.red),
+                                ),
+                                Text(
+                                  data.price.toString(),
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.red),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              "assets/dots.png",
+                              height: 25,
+                              color: Colors.green,
+                            )
+                          ],
                         )
                       ],
-                    )
-                  ],
-                ),
-              ),
-              )
-            ],
-          ),
-        )
-      );
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ));
     }
 
     return GridView.count(

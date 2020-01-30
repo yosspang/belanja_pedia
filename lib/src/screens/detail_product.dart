@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../bloc/productsBloc.dart';
+import '../bloc/products_bloc.dart';
 import '../model/product.dart';
-import './home_page.dart';
 
 class DetailProduct extends StatelessWidget {
   @override
@@ -39,7 +38,10 @@ class DetailProduct extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               'Rp$price',
-                              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.red),
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red),
                             ),
                             Image.asset("assets/love.png", height: 30)
                           ],
@@ -52,7 +54,8 @@ class DetailProduct extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               name,
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -64,124 +67,126 @@ class DetailProduct extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0,10,0,0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             height: 80,
             width: double.maxFinite,
             child: Card(
-              elevation: 1,
-              child: Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Shipping',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'JNE',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-                    )
-                  ],
-                ),
-              )
-            ),
+                elevation: 1,
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Shipping',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'JNE',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                      )
+                    ],
+                  ),
+                )),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0,10,0,0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             height: 150,
             width: double.maxFinite,
             child: Card(
-              elevation: 1,
-              child: Container(
-                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Description',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          categories,
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          description,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ),
+                elevation: 1,
+                child: Container(
+                  margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Description',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            categories,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            description,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
           ),
-          
         ],
       );
     }
 
     Widget action() {
       return Container(
-        padding: EdgeInsets.fromLTRB(0,10,0,0),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
         height: 90,
         width: double.maxFinite,
         child: Card(
           elevation: 1,
           child: Center(
             child: RaisedButton(
-              child: Text(
-                "Add To Cart",
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () async{
-                final result = await bloc.addToCart(id);
-                if(result['statusCode'] != 200) {
-                  print('failed');
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              color: Colors.red,
-              textColor: Colors.white,
-              padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-              splashColor: Colors.grey,
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0))),
+                child: Text(
+                  "Add To Cart",
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () async {
+                  final result = await bloc.addToCart(id);
+                  if (result['statusCode'] != 200) {
+                    print('failed');
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
+                color: Colors.red,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                splashColor: Colors.grey,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0))),
           ),
         ),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Detail Product'),
-        backgroundColor: Colors.green,
-      ),
-      backgroundColor: Colors.grey[200],
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: ListView(
-              children: <Widget>[
-                body()
-              ],
+        appBar: AppBar(
+          title: Text('Detail Product'),
+          backgroundColor: Colors.green,
+        ),
+        backgroundColor: Colors.grey[200],
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: ListView(
+                children: <Widget>[body()],
+              ),
             ),
-          ),
-          action()
-        ],
-      )
-    );
+            action()
+          ],
+        ));
   }
 }

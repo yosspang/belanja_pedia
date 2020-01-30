@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:belanja_pedia/src/model/user.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget{
@@ -21,7 +20,7 @@ class PaymentState extends State<Payment> {
   String lastName = widget.user.lastName;
   String name = firstName + lastName;
   String address = widget.user.address;
-  String email = widget.user.email;
+  // String email = widget.user.email;
 
     return Column(
       children: <Widget>[
