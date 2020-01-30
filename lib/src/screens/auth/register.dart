@@ -1,7 +1,6 @@
 import 'package:belanja_pedia/src/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import './login.dart';
-import 'package:belanja_pedia/src/screens/dashboard.dart';
 import 'package:belanja_pedia/api_service.dart';
 
 class Register extends StatefulWidget {
@@ -52,7 +51,7 @@ class _Register extends State<Register> {
       } else {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Dashboard()),
+          MaterialPageRoute(builder: (context) => Login()),
         );
       }
     } else {

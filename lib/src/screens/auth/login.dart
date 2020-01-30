@@ -1,5 +1,6 @@
 import 'package:belanja_pedia/src/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './register.dart';
 import 'package:belanja_pedia/src/screens/dashboard.dart';
 
@@ -9,11 +10,38 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   bool _validate = false;
   bool _showPassword = false;
+
+  void checkLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String user = prefs.getString('email');
+    print('sharedprefs $user');
+    if (user != null) {
+      // setState(() {
+      //   _useremail = user;
+      // });
+      // blocs.updateEmail(user);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Dashboard()));
+      print("autoLogIn success");
+    }
+  }
+
+  Future<Null> doLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', _email.text);
+    print('Store Login: ${prefs.getString('email')}');
+  }
 
   void submit() async {
     String email = _email.text;
@@ -42,6 +70,7 @@ class _Login extends State<Login> {
             });
       } else {
         print('Login success');
+        await doLogin();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Dashboard()),
