@@ -223,7 +223,7 @@ class CartRowState extends State<CartRow> {
                         Navigator.push(
                         context,
                           MaterialPageRoute(
-                            builder: (context) => PaymentNetwork(sum: sum, productId: productId),
+                            builder: (context) => PaymentNetwork(sum: sum, productId: productId, items: widget.length),
                             // settings: RouteSettings(arguments: sum),
                           ),
                         );
