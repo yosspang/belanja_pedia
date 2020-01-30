@@ -217,13 +217,14 @@ class CartRowState extends State<CartRow> {
                           ),
                           onPressed: () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PaymentNetwork(
-                                    sum: sum, productId: productId),
-                                // settings: RouteSettings(arguments: sum),
-                              ),
-                            );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PaymentNetwork(
+                                      sum: sum,
+                                      productId: productId,
+                                      items: widget.length),
+                                  // settings: RouteSettings(arguments: sum),
+                                ));
                           },
                           color: Colors.red,
                           textColor: Colors.white,

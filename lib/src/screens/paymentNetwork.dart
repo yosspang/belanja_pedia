@@ -5,10 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PaymentNetwork extends StatelessWidget {
-  const PaymentNetwork({this.sum, this.productId});
+  const PaymentNetwork({this.sum, this.productId, this.items});
 
   final sum;
   final productId;
+  final items;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,8 @@ class PaymentNetwork extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<Users> snapshot) {
           if (snapshot.hasData) {
             print('has data');
-            return Payment(user: snapshot.data, sum: sum, productId: productId);
+            print(items);
+            return Payment(user: snapshot.data, sum: sum, productId: productId, items: items);
           } else if (snapshot.hasError) {
             print('error');
             return Text(snapshot.error.toString());
