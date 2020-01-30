@@ -89,7 +89,7 @@ class CartRowState extends State<CartRow> {
             quantityState = product.quantity;
             // });
 
-            print('qty state ${quantityState}');
+            print('qty state $quantityState');
             // if (quantityState.length < widget.length) {
             //   quantityState.add(1);
             // }

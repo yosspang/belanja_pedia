@@ -1,4 +1,3 @@
-import 'package:belanja_pedia/src/screens/account_tab.dart';
 import 'package:belanja_pedia/src/screens/products_list_tab.dart';
 import 'package:belanja_pedia/src/screens/search_tab.dart';
 import './cart.dart';

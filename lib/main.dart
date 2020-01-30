@@ -1,10 +1,5 @@
-// import 'package:belanja_pedia/landing_page.dart';
-// import 'package:belanja_pedia/src/screens/dashboard.dart';
-import 'package:belanja_pedia/src/screens/auth/login.dart';
 import 'package:belanja_pedia/src/screens/dashboard.dart';
-
 import 'package:flutter/material.dart';
-// import 'api_service.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,7 +1,6 @@
 import 'package:belanja_pedia/src/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import './login.dart';
-import 'package:belanja_pedia/api_service.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -25,8 +24,6 @@ class _Register extends State<Register> {
       String firstname = _firstname.text;
       String lastname = _lastname.text;
       String address = _address.text;
-
-      ApiService apiService = ApiService();
       UserBloc userBloc = UserBloc();
       var register = await userBloc.registerUser(
           email, password, firstname, lastname, address);
