@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-
+import './bloc/productsBloc.dart';
 import 'model/product.dart';
+import './home_page.dart';
 
 class DetailProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Products listProduct = ModalRoute.of(context).settings.arguments;
+    int id = listProduct.id;
     String name = listProduct.name;
     int price = listProduct.price;
     String image = listProduct.image;
@@ -136,37 +138,29 @@ class DetailProduct extends StatelessWidget {
         width: double.maxFinite,
         child: Card(
           elevation: 1,
-          child: Row(
-            
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Padding(padding: EdgeInsets.only(left: 10)),
-              RaisedButton(
-                child: Text(
-                  "Add To Cart",
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {},
-                color: Colors.red,
-                textColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                splashColor: Colors.grey,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0))),
-              RaisedButton(
-                child: Text(
-                  "Buy",
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {},
-                color: Colors.green,
-                textColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                splashColor: Colors.grey,
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0))),
-              const Padding(padding: EdgeInsets.only(right: 10)),
-            ],
+          child: Center(
+            child: RaisedButton(
+              child: Text(
+                "Add To Cart",
+                style: TextStyle(fontSize: 20),
+              ),
+              onPressed: () async{
+                final result = await bloc.addToCart(id);
+                if(result['statusCode'] != 200) {
+                  print('failed');
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                }
+              },
+              color: Colors.red,
+              textColor: Colors.white,
+              padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+              splashColor: Colors.grey,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0))),
           ),
         ),
       );

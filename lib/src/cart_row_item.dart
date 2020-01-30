@@ -19,7 +19,6 @@ class CartRowState extends State<CartRow> {
   final color = const Color(0xFF50B154);
   int sum = 0;
   List allPrice = [];
-  List totalPrice = [];
   List listProduct = List();
 
   void increment(int id, stok) async{
@@ -56,15 +55,13 @@ class CartRowState extends State<CartRow> {
   }
 
   jml(index, price) {
-    for(var i = 0; i < index; i++) {
-      sum += allPrice[i];
-    }
+    sum += allPrice[index];
+    bloc.total(sum);
+    print(sum);
     return sum;
   }
 
   void submit(price, data) {
-    totalPrice.add(price);
-    // listProduct.add(data);
   }
 
   @override
@@ -80,7 +77,6 @@ class CartRowState extends State<CartRow> {
             bloc.currentQuantity = quantity;
             var price = product.price * quantity;
             allPrice.add(price);
-            // listProduct.add(product as List<Products>);
             jml(index, price);
             submit(price, product);
 
@@ -116,7 +112,7 @@ class CartRowState extends State<CartRow> {
                           ),
                           const Padding(padding: EdgeInsets.only(top: 8)),
                           Text(
-                            '\$${product.price}',
+                            'Rp${product.price}',
                             style: Styles.productRowItemPrice,
                           ),
                           const Padding(padding: EdgeInsets.only(top: 20)),
@@ -230,15 +226,14 @@ class CartRowState extends State<CartRow> {
                       alignment: Alignment.bottomRight,
                       child: RaisedButton(
                         child: Text(
-                          "Buy",
+                          "Checkout",
                           style: TextStyle(fontSize: 20),
                         ),
                         onPressed: () {
-                          print(listProduct);
-                          print(totalPrice);
+                          print(widget.product.data);
                           print(sum);
                         },
-                        color: Colors.green,
+                        color: Colors.red,
                         textColor: Colors.white,
                         padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                         splashColor: Colors.grey,

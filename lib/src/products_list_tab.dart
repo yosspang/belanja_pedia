@@ -17,7 +17,9 @@ class ProductListTab extends StatelessWidget {
         if(snapshot.hasError) print(snapshot.error);
         return snapshot.hasData 
           ? new ProductRowItem(product: snapshot.data, length: snapshot.data.length)
-          : new Center(child: CircularProgressIndicator(backgroundColor: Colors.green,));
+          : new Center(child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.green),
+          ));
 
       },
     );

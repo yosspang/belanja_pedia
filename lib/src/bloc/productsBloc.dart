@@ -3,6 +3,7 @@ import 'package:belanja_pedia/src/resources/repository.dart';
 
 class ProductsBloc {
   int currentQuantity;
+  int sum = 0;
   // List<int> currentQuantity = List<int>();
 
   
@@ -39,6 +40,10 @@ class ProductsBloc {
     print('id $id dan counter $counter di productsbloc');
     final res = _repository.updateQuantity(id, counter);
     return res;
+  }
+
+  total(sum) {
+    return sum = sum;
   }
 }
 
