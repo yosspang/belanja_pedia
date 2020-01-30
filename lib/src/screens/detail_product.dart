@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './bloc/productsBloc.dart';
-import 'model/product.dart';
+import '../bloc/productsBloc.dart';
+import '../model/product.dart';
 import './home_page.dart';
 
 class DetailProduct extends StatelessWidget {
@@ -149,10 +149,7 @@ class DetailProduct extends StatelessWidget {
                 if(result['statusCode'] != 200) {
                   print('failed');
                 } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  Navigator.pop(context);
                 }
               },
               color: Colors.red,

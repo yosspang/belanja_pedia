@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './login.dart';
 import './dashboard.dart';
-import '../api_service.dart';
+import '../../api_service.dart';
 
 class Register extends StatefulWidget {
   @override

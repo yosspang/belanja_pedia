@@ -1,4 +1,5 @@
 import 'package:belanja_pedia/src/model/product.dart';
+import 'package:belanja_pedia/src/model/user.dart';
 import 'package:belanja_pedia/src/resources/repository.dart';
 
 class ProductsBloc {
@@ -24,6 +25,11 @@ class ProductsBloc {
 
   Stream<List<Products>> get cartList async* {
     yield await _repository.getCarts('test@mail.com');
+  }
+
+  Stream<Users> get userInfo async* {
+    print('di product bloc');
+    yield await _repository.getInfoUser('test@mail.com');
   }
 
   addToCart(int productId) {

@@ -1,7 +1,9 @@
+import 'package:belanja_pedia/src/screens/payment.dart';
 import 'package:flutter/material.dart';
-import 'model/product.dart';
-import 'styles.dart';
-import 'bloc/productsBloc.dart';
+import '../model/product.dart';
+import 'paymentNetwork.dart';
+import '../screens/styles.dart';
+import '../bloc/productsBloc.dart';
 
 class CartRow extends StatefulWidget {
   const CartRow({this.product, this.length});
@@ -18,8 +20,7 @@ class CartRow extends StatefulWidget {
 class CartRowState extends State<CartRow> {
   final color = const Color(0xFF50B154);
   int sum = 0;
-  List allPrice = [];
-  List listProduct = List();
+  List productId = [];
 
   void increment(int id, stok) async{
     if (bloc.currentQuantity == stok) {
@@ -54,16 +55,6 @@ class CartRowState extends State<CartRow> {
     await bloc.updateQuantity(id, "minus");
   }
 
-  jml(index, price) {
-    sum += allPrice[index];
-    bloc.total(sum);
-    print(sum);
-    return sum;
-  }
-
-  void submit(price, data) {
-  }
-
   @override
   Widget build(BuildContext context) {
     
@@ -74,11 +65,10 @@ class CartRowState extends State<CartRow> {
           itemBuilder: (BuildContext context, int index) {
             Products product = widget.product.data[index];
             int quantity = product.quantity;
+            int id = product.id;
+            int price = product.price * quantity;
+            productId.add(id);
             bloc.currentQuantity = quantity;
-            var price = product.price * quantity;
-            allPrice.add(price);
-            jml(index, price);
-            submit(price, product);
 
             return SafeArea(
               top: false,
@@ -194,6 +184,7 @@ class CartRowState extends State<CartRow> {
     }
 
     Widget buy() {
+      widget.product.data.forEach((doc) => sum += (doc.price * doc.quantity));
       return Column(
         children: <Widget>[
           Container(
@@ -205,43 +196,46 @@ class CartRowState extends State<CartRow> {
           ),
           Container(
             margin: EdgeInsets.only(right: 10, top: 10, left: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  '${widget.length} products',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Total: ',
-                    style: TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      'Rp$sum ',
-                      style: TextStyle(fontSize: 16, color: Colors.red),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: RaisedButton(
-                        child: Text(
-                          "Checkout",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        onPressed: () {
-                          print(widget.product.data);
-                          print(sum);
-                        },
-                        color: Colors.red,
-                        textColor: Colors.white,
-                        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                        splashColor: Colors.grey,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)))),
-                  ],
-                )
-              ],
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'Total: ',
+                      style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'Rp$sum ',
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: RaisedButton(
+                      child: Text(
+                        "Checkout",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                        context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentNetwork(sum: sum, productId: productId),
+                            // settings: RouteSettings(arguments: sum),
+                          ),
+                        );
+                      },
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      splashColor: Colors.grey,
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)))),
+                ],
+              ),
             ),
           ),
         ],

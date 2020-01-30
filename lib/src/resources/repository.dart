@@ -9,4 +9,5 @@ class Repository {
   Future addToCart(int productId) => productApiProvider.addToCart(productId);
   Future getCarts(String email) => productApiProvider.getCart(email);
   Future updateQuantity(int id, String counter) => productApiProvider.updateQuantity(id, counter);
+  Future getInfoUser(String email) => productApiProvider.getInfoUser(email);
 }

@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'bloc/productsBloc.dart';
-import 'model/product.dart';
+import '../bloc/productsBloc.dart';
+import '../model/product.dart';
 import 'styles.dart';
 import './detail_product.dart';
 

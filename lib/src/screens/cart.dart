@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'bloc/productsBloc.dart';
+import '../bloc/productsBloc.dart';
 import 'cart_row_item.dart';
-import 'model/product.dart';
+import '../model/product.dart';
 
 class Cart extends StatelessWidget {
   @override

@@ -3,7 +3,7 @@ import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'product_row_item.dart';
+import '../screens/product_row_item.dart';
 
 class ProductListTab extends StatelessWidget {
   @override
@@ -20,7 +20,6 @@ class ProductListTab extends StatelessWidget {
           : new Center(child: CircularProgressIndicator(
             valueColor: new AlwaysStoppedAnimation<Color>(Colors.green),
           ));
-
       },
     );
   }

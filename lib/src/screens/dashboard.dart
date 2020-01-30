@@ -1,5 +1,5 @@
-import 'package:belanja_pedia/src/account_tab.dart';
-import 'package:belanja_pedia/src/products_list_tab.dart';
+import 'package:belanja_pedia/src/screens/account_tab.dart';
+import 'package:belanja_pedia/src/screens/products_list_tab.dart';
 import './cart.dart';
 import 'package:flutter/material.dart';
 import './home_page.dart';

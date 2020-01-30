@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:belanja_pedia/src/model/product.dart';
+import 'package:belanja_pedia/src/model/user.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show Client, Response;
@@ -37,6 +38,7 @@ class ProductApiProvider {
 
     String carts = response.body;
     final cartList = cartsFromJson(carts);
+    print('cart list $cartList');
     return cartList;
   }
 
@@ -51,5 +53,16 @@ class ProductApiProvider {
     final res = jsonDecode(response.body);
     print(res);
     return res;
+  }
+
+  Future getInfoUser(String email) async {
+    print('di provider');
+    Response response;
+    response = await client.get("http://belanja-pedia-api.herokuapp.com/api/user/$email");
+    String user = response.body;
+    final userInfo = usersFromJson(user);
+    // final resp = new Map();
+    // resp['body'] = user;
+    return userInfo;
   }
 }
