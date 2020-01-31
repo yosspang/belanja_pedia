@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import '../bloc/products_bloc.dart';
 import '../model/product.dart';
@@ -128,9 +129,19 @@ class DetailProduct extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          Text(
-                            description,
-                            style: TextStyle(fontSize: 18),
+                          Container(
+                            child: SizedBox(
+                              width: 270,
+                              height: 100,
+                              child: AutoSizeText(
+                                description,
+                                style: TextStyle(fontSize: 18),
+                                minFontSize: 10,
+                                stepGranularity: 10,
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
                         ],
                       ),
