@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:belanja_pedia/src/model/user.dart';
 import 'package:flutter/material.dart';
 
-class Payment extends StatefulWidget{
+class Payment extends StatefulWidget {
   const Payment({this.user, this.sum, this.productId, this.items});
 
   final user;
@@ -17,17 +17,16 @@ class Payment extends StatefulWidget{
 }
 
 class PaymentState extends State<Payment> {
-
   String valueradio = '';
   // int total = widget.sum + 10000;
 
   Widget body() {
-  String firstName = widget.user.firstName;
-  String lastName = widget.user.lastName;
-  String name = firstName + ' ' + lastName;
-  String address = widget.user.address;
-  String email = widget.user.email;
-  int subTotal = widget.sum;
+    String firstName = widget.user.firstName;
+    String lastName = widget.user.lastName;
+    String name = firstName + ' ' + lastName;
+    String address = widget.user.address;
+    String email = widget.user.email;
+    int subTotal = widget.sum;
 
     return Column(
       children: <Widget>[
@@ -52,7 +51,8 @@ class PaymentState extends State<Payment> {
                         children: <Widget>[
                           Text(
                             name,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                         ],
                       ),
@@ -93,10 +93,13 @@ class PaymentState extends State<Payment> {
                               color: Colors.grey[200],
                               elevation: 2,
                               child: Container(
-                                margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+                                margin: EdgeInsets.only(
+                                    top: 10, left: 10, bottom: 10),
                                 child: Text(
                                   email,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 ),
                               ),
                             ),
@@ -116,7 +119,7 @@ class PaymentState extends State<Payment> {
           child: Card(
             elevation: 5,
             child: Container(
-            margin: EdgeInsets.only(left: 10, top: 10, right: 10),
+              margin: EdgeInsets.only(left: 10, top: 10, right: 10),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -133,7 +136,8 @@ class PaymentState extends State<Payment> {
                           ),
                           Text(
                             'Orders',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ],
                       ),
@@ -146,7 +150,7 @@ class PaymentState extends State<Payment> {
                   Container(
                     width: 500,
                     decoration: BoxDecoration(
-                      border: Border(
+                        border: Border(
                       top: BorderSide(width: 1.0, color: Colors.grey[200]),
                     )),
                   ),
@@ -170,10 +174,9 @@ class PaymentState extends State<Payment> {
                         width: 170,
                         height: 110,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(width: 1, color: Colors.green),
-                          color: Colors.grey[200]
-                        ),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 1, color: Colors.green),
+                            color: Colors.grey[200]),
                         child: Column(
                           children: <Widget>[
                             Row(
@@ -194,7 +197,9 @@ class PaymentState extends State<Payment> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      Text('JNE', style: TextStyle(fontWeight: FontWeight.bold)),
+                                      Text('JNE',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                   SizedBox(
@@ -202,7 +207,7 @@ class PaymentState extends State<Payment> {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Text('Wait till 01 Feb'),
+                                      Text('Wait till 03 Feb'),
                                     ],
                                   ),
                                   SizedBox(
@@ -210,13 +215,15 @@ class PaymentState extends State<Payment> {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Text('Pay before 31 Jan', style: TextStyle(color: Colors.red),),
+                                      Text(
+                                        'Pay before 01 Feb',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ],
                                   )
                                 ],
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
@@ -288,7 +295,9 @@ class PaymentState extends State<Payment> {
                       const Padding(
                         padding: EdgeInsets.only(right: 10),
                       ),
-                      Text('Payment Method', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      Text('Payment Method',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
                     ],
                   ),
                   SizedBox(
@@ -297,7 +306,7 @@ class PaymentState extends State<Payment> {
                   Container(
                     width: 500,
                     decoration: BoxDecoration(
-                      border: Border(
+                        border: Border(
                       top: BorderSide(width: 1.0, color: Colors.grey[200]),
                     )),
                   ),
@@ -309,14 +318,16 @@ class PaymentState extends State<Payment> {
                       Row(
                         children: <Widget>[
                           Radio(
-                            value: 0,
+                            value: 'Bank',
                             focusColor: Colors.green,
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             onChanged: (value) {
                               setState(() {
                                 valueradio = value;
                               });
                             },
+                            groupValue: valueradio,
                           ),
                           Text(
                             'Bank',
@@ -330,14 +341,16 @@ class PaymentState extends State<Payment> {
                       Row(
                         children: <Widget>[
                           Radio(
-                            value: 0,
+                            value: 'Credit',
                             focusColor: Colors.green,
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             onChanged: (value) {
                               setState(() {
                                 valueradio = value;
                               });
                             },
+                            groupValue: valueradio,
                           ),
                           Text(
                             'Credit Card',
@@ -345,10 +358,8 @@ class PaymentState extends State<Payment> {
                           )
                         ],
                       ),
-                      
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -378,31 +389,33 @@ class PaymentState extends State<Payment> {
                   ),
                   Text(
                     'Rp$total',
-                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   )
                 ],
               ),
               Align(
-                alignment: Alignment.bottomRight,
-                child: RaisedButton(
-                  child: Text(
-                    "Buy",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {},
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                  splashColor: Colors.grey,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)))),
+                  alignment: Alignment.bottomRight,
+                  child: RaisedButton(
+                      child: Text(
+                        "Buy",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {},
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      splashColor: Colors.grey,
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)))),
             ],
           ),
         ),
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -424,14 +437,11 @@ class PaymentState extends State<Payment> {
             Expanded(
               flex: 1,
               child: ListView(
-                children: <Widget>[
-                  body()
-                ],
+                children: <Widget>[body()],
               ),
             ),
             checkout()
           ],
-        )
-    );
+        ));
   }
 }

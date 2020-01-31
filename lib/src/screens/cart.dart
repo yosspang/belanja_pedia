@@ -1,8 +1,9 @@
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
+import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../bloc/productsBloc.dart';
 import 'cart_row_item.dart';
-import '../model/product.dart';
+import 'dart:async';
 
 class Cart extends StatelessWidget {
   @override
@@ -15,9 +16,8 @@ class Cart extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<Products>> snapshot) {
           if (snapshot.hasData) {
-            return CartRow(
-              product: snapshot,
-              length: snapshot.data.length);
+            print('ada di cart');
+            return CartRow(product: snapshot, length: snapshot.data.length);
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }

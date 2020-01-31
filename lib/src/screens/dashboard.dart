@@ -1,5 +1,6 @@
 import 'package:belanja_pedia/src/screens/account_tab.dart';
-import 'package:belanja_pedia/src/screens/products_list_tab.dart';
+import 'package:belanja_pedia/src/screens/auth/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './cart.dart';
 import 'package:flutter/material.dart';
 import './home_page.dart';
@@ -12,7 +13,26 @@ class Dashboard extends StatefulWidget {
 
 class _Dashboard extends State<Dashboard> {
   int _currentIndex = 0;
-  final List<Widget> _children = [HomePage(), Cart(), AccountTab()];
+  String user;
+  List<Widget> _children;
+
+  checkLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    user = prefs.getString('email');
+    // prefs.setString('email', null);
+    print('sharedprefs $user');
+    if (user != null) {
+      print("autoLogIn success");
+    }
+  }
+
+  cart() {
+    if (user == null) {
+      _children = [HomePage(), Login(), Login()];
+    } else if (user != null) {
+      _children = [HomePage(), Cart(), AccountTab()];
+    }
+  }
 
   void onTabTapped(int index) {
     setState(() {
@@ -22,6 +42,8 @@ class _Dashboard extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    checkLogin();
+    cart();
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

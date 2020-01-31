@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './cart.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -7,11 +6,9 @@ class Search extends StatefulWidget {
 }
 
 class SearchBarState extends State<Search> {
-
   // Widget search() {
-  //   return 
+  //   return
   // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +19,22 @@ class SearchBarState extends State<Search> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         Container(
-          width: 175,
-          margin: EdgeInsets.only(left: 20),
-          child: TextField(
-            onChanged: (text) {},
-            autofocus: false,
-            cursorColor: Colors.green,
-            decoration: InputDecoration(
-                hintText: "Search Here",
-                focusColor: Colors.green,
-                contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                suffixIcon: Icon(Icons.search, color: Colors.green,)
-            )
-          )
-        ),
+            width: 175,
+            margin: EdgeInsets.only(left: 20),
+            child: TextField(
+                onChanged: (text) {},
+                autofocus: false,
+                cursorColor: Colors.green,
+                decoration: InputDecoration(
+                    hintText: "Search Here",
+                    focusColor: Colors.green,
+                    contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.green,
+                    )))),
       ],
     );
   }

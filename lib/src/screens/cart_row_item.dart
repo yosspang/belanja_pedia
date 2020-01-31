@@ -1,9 +1,10 @@
-import 'package:belanja_pedia/src/screens/payment.dart';
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 import '../model/product.dart';
 import 'paymentNetwork.dart';
 import '../screens/styles.dart';
-import '../bloc/productsBloc.dart';
+import 'package:belanja_pedia/src/model/product.dart';
+import 'styles.dart';
 
 class CartRow extends StatefulWidget {
   const CartRow({this.product, this.length});
@@ -22,7 +23,7 @@ class CartRowState extends State<CartRow> {
   int sum = 0;
   List productId = [];
 
-  void increment(int id, stok) async{
+  void increment(int id, stok) async {
     if (bloc.currentQuantity == stok) {
       setState(() {
         bloc.currentQuantity = stok;
@@ -49,7 +50,7 @@ class CartRowState extends State<CartRow> {
     }
   }
 
-  void decrement(int id) async{
+  void decrement(int id) async {
     print(widget.product.data);
 
     await bloc.updateQuantity(id, "minus");
@@ -57,9 +58,7 @@ class CartRowState extends State<CartRow> {
 
   @override
   Widget build(BuildContext context) {
-    
     Widget row() {
-      
       return ListView.builder(
           itemCount: widget.length,
           itemBuilder: (BuildContext context, int index) {
@@ -69,7 +68,6 @@ class CartRowState extends State<CartRow> {
             int price = product.price * quantity;
             productId.add(id);
             bloc.currentQuantity = quantity;
-
             return SafeArea(
               top: false,
               bottom: false,
@@ -160,10 +158,8 @@ class CartRowState extends State<CartRow> {
                                   padding: EdgeInsets.only(right: 10)),
                               Column(
                                 children: <Widget>[
-                                  Text(
-                                    'Total $price',
-                                    style: TextStyle(color: Colors.red)
-                                  ),
+                                  Text('Total $price',
+                                      style: TextStyle(color: Colors.red)),
                                   Text(
                                       (product.stock <= 10)
                                           ? 'Sisa ${product.stock} buah'
@@ -190,7 +186,7 @@ class CartRowState extends State<CartRow> {
           Container(
             width: 450,
             decoration: BoxDecoration(
-              border: Border(
+                border: Border(
               top: BorderSide(width: 1.0, color: color),
             )),
           ),
@@ -204,7 +200,7 @@ class CartRowState extends State<CartRow> {
                     children: <Widget>[
                       Text(
                         'Total: ',
-                      style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16),
                       ),
                       Text(
                         'Rp$sum ',
@@ -213,27 +209,29 @@ class CartRowState extends State<CartRow> {
                     ],
                   ),
                   Align(
-                    alignment: Alignment.bottomRight,
-                    child: RaisedButton(
-                      child: Text(
-                        "Checkout",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                        context,
-                          MaterialPageRoute(
-                            builder: (context) => PaymentNetwork(sum: sum, productId: productId, items: widget.length),
-                            // settings: RouteSettings(arguments: sum),
+                      alignment: Alignment.bottomRight,
+                      child: RaisedButton(
+                          child: Text(
+                            "Checkout",
+                            style: TextStyle(fontSize: 20),
                           ),
-                        );
-                      },
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                      splashColor: Colors.grey,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PaymentNetwork(
+                                      sum: sum,
+                                      productId: productId,
+                                      items: widget.length),
+                                  // settings: RouteSettings(arguments: sum),
+                                ));
+                          },
+                          color: Colors.red,
+                          textColor: Colors.white,
+                          padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                          splashColor: Colors.grey,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)))),
                 ],
               ),
             ),
