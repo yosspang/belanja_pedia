@@ -1,4 +1,4 @@
-import 'package:belanja_pedia/src/bloc/productsBloc.dart';
+import 'package:belanja_pedia/src/bloc/products_bloc.dart';
 import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
