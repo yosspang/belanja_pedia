@@ -13,7 +13,6 @@ class _Login extends State<Login> {
   @override
   void initState() {
     super.initState();
-    checkLogin();
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -21,21 +20,6 @@ class _Login extends State<Login> {
   TextEditingController _password = TextEditingController();
   bool _validate = false;
   bool _showPassword = false;
-
-  void checkLogin() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String user = prefs.getString('email');
-    print('sharedprefs $user');
-    if (user != null) {
-      // setState(() {
-      //   _useremail = user;
-      // });
-      // blocs.updateEmail(user);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Dashboard()));
-      print("autoLogIn success");
-    }
-  }
 
   Future<Null> doLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

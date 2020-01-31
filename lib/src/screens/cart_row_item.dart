@@ -7,8 +7,8 @@ import 'package:belanja_pedia/src/model/product.dart';
 import 'styles.dart';
 
 class CartRow extends StatefulWidget {
-  const CartRow({this.product, this.length});
-
+  const CartRow({this.user, this.product, this.length});
+  final user;
   final product;
   final int length;
 
@@ -46,14 +46,14 @@ class CartRowState extends State<CartRow> {
             );
           });
     } else {
-      await bloc.updateQuantity(id, "plus");
+      await bloc.updateQuantity(widget.user, id, "plus");
     }
   }
 
   void decrement(int id) async {
     print(widget.product.data);
 
-    await bloc.updateQuantity(id, "minus");
+    await bloc.updateQuantity(widget.user, id, "minus");
   }
 
   @override
@@ -220,6 +220,7 @@ class CartRowState extends State<CartRow> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PaymentNetwork(
+                                      user: widget.user,
                                       sum: sum,
                                       productId: productId,
                                       items: widget.length),

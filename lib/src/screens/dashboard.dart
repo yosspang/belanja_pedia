@@ -15,8 +15,7 @@ class _Dashboard extends State<Dashboard> {
   int _currentIndex = 0;
   String user;
   List<Widget> _children;
-
-  checkLogin() async {
+  void checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     user = prefs.getString('email');
     // prefs.setString('email', null);
@@ -30,7 +29,7 @@ class _Dashboard extends State<Dashboard> {
     if (user == null) {
       _children = [HomePage(), Login(), Login()];
     } else if (user != null) {
-      _children = [HomePage(), Cart(), AccountTab()];
+      _children = [HomePage(user: user), Cart(user: user), AccountTab()];
     }
   }
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:belanja_pedia/src/model/product.dart';
 import 'package:belanja_pedia/src/model/user.dart';
 
@@ -17,14 +16,13 @@ class ProductApiProvider {
     return productsList;
   }
 
-  Future addToCart(int productId) async {
+  Future addToCart(String email, int productId) async {
     final id = productId.toString();
-    print('di product api provider $id');
+    print('di product api provider $id email $email');
     Response response;
-    response = await client.post("http://belanja-pedia-api.herokuapp.com/api/cart", body: {
-      "email": "test@mail.com",
-      "product_id": id
-    });
+    response = await client.post(
+        "http://belanja-pedia-api.herokuapp.com/api/cart",
+        body: {"email": email, "product_id": id});
     final res = jsonDecode(response.body);
     final resp = new Map();
     resp['body'] = res;
@@ -34,7 +32,8 @@ class ProductApiProvider {
   }
 
   Future getCart(String email) async {
-    http.Response response = await client.get("http://belanja-pedia-api.herokuapp.com/api/cart/$email");
+    http.Response response = await client
+        .get("http://belanja-pedia-api.herokuapp.com/api/cart/$email");
 
     String carts = response.body;
     final cartList = cartsFromJson(carts);
@@ -42,14 +41,13 @@ class ProductApiProvider {
     return cartList;
   }
 
-  Future updateQuantity(int id, String counter) async {
-    print('id $id dan counter $counter di api provider');
+  Future updateQuantity(String user, int id, String counter) async {
+    print('user $user id $id dan counter $counter di api provider');
     final productId = id.toString();
     Response response;
-    response = await client.put("http://belanja-pedia-api.herokuapp.com/api/cart", body: {
-      "product_id": productId,
-      "counter": counter
-    });
+    response = await client.put(
+        "http://belanja-pedia-api.herokuapp.com/api/cart",
+        body: {"email": user, "product_id": productId, "counter": counter});
     final res = jsonDecode(response.body);
     print(res);
     return res;
@@ -58,11 +56,10 @@ class ProductApiProvider {
   Future getInfoUser(String email) async {
     print('di provider');
     Response response;
-    response = await client.get("http://belanja-pedia-api.herokuapp.com/api/user/$email");
+    response = await client
+        .get("http://belanja-pedia-api.herokuapp.com/api/user/$email");
     String user = response.body;
     final userInfo = usersFromJson(user);
-    // final resp = new Map();
-    // resp['body'] = user;
     return userInfo;
   }
 }
