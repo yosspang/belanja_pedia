@@ -8,10 +8,10 @@ class Repository {
   final productApiProvider = ProductApiProvider();
 
   Future fetchProducts() => productApiProvider.fetchProducts();
-  Future addToCart(int productId) => productApiProvider.addToCart(productId);
+  Future addToCart(String email, int productId) => productApiProvider.addToCart(email, productId);
   Future getCarts(String email) => productApiProvider.getCart(email);
-  Future updateQuantity(int id, String counter) =>
-      productApiProvider.updateQuantity(id, counter);
+  Future updateQuantity(String user, int id, String counter) =>
+      productApiProvider.updateQuantity(user, id, counter);
   Future getInfoUser(String email) => productApiProvider.getInfoUser(email);
   Future loginUser(String email, String password) =>
       userApiProvider.postLogin(email, password);

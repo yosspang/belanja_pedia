@@ -4,8 +4,8 @@ import '../bloc/products_bloc.dart';
 import './detail_product.dart';
 
 class ProductRowItem extends StatefulWidget {
-  const ProductRowItem({this.product, this.length});
-
+  const ProductRowItem({this.user, this.product, this.length});
+  final user;
   final product;
   final length;
 
@@ -16,7 +16,7 @@ class ProductRowItem extends StatefulWidget {
 class ProductRowItemState extends State<ProductRowItem> {
   addToCart(index, int productId, context) async {
     ProductsBloc productsBloc = ProductsBloc();
-    await productsBloc.addToCart(productId);
+    await productsBloc.addToCart(widget.user, productId);
   }
 
   @override
@@ -29,7 +29,7 @@ class ProductRowItemState extends State<ProductRowItem> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailProduct(),
+                  builder: (context) => DetailProduct(user: widget.user),
                   settings: RouteSettings(arguments: data),
                 ),
               );

@@ -3,6 +3,9 @@ import '../bloc/products_bloc.dart';
 import '../model/product.dart';
 
 class DetailProduct extends StatelessWidget {
+  const DetailProduct({this.user});
+
+  final user;
   @override
   Widget build(BuildContext context) {
     final Products listProduct = ModalRoute.of(context).settings.arguments;
@@ -153,7 +156,7 @@ class DetailProduct extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () async {
-                  final result = await bloc.addToCart(id);
+                  final result = await bloc.addToCart(user, id);
                   if (result['statusCode'] != 200) {
                     print('failed');
                   } else {
