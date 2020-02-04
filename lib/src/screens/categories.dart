@@ -107,19 +107,9 @@ class CategoriesState extends State<Categories> {
         childAspectRatio: 0.65,
         shrinkWrap: true,
         children: List.generate(widget.length, (index) {
-          print(widget.type);
-          // final data = widget.categories[index].categoris;
-          if(widget.type == widget.categories[index].categories) {
-            // print(data);
             return products(widget.categories[index]);
-          }else {
-            // print('beda');
-            return products(widget.categories[index]);
-            // print('ga sama');
-          }
         }),
       ),
-      );
-    // );
+    );
   }
 }
