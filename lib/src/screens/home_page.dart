@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import './products_list_tab.dart';
 import './searchBar.dart';
+import './categoriesNetwork.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({this.user});
@@ -95,7 +96,14 @@ class HomePageState extends State<HomePage> {
         child: Row(
           children: <Widget>[
             InkWell(
-              onTap: () {},
+              onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoriesNetwork(categories: 'Fashion', user: widget.user),
+                  ),
+                );
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 10),
                 decoration: new BoxDecoration(
@@ -116,7 +124,14 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoriesNetwork(categories: 'Groceries', user: widget.user),
+                  ),
+                );
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 20),
                 decoration: new BoxDecoration(
@@ -137,7 +152,14 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoriesNetwork(categories: 'Otomotive', user: widget.user),
+                  ),
+                );
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 20),
                 decoration: new BoxDecoration(
@@ -158,7 +180,14 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoriesNetwork(categories: 'Sports', user: widget.user),
+                  ),
+                );
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 20),
                 decoration: new BoxDecoration(

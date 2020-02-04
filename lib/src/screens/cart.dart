@@ -19,7 +19,6 @@ class Cart extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<Products>> snapshot) {
           if (snapshot.hasData) {
-            print('ada di cart');
             return CartRow(
                 user: user, product: snapshot, length: snapshot.data.length);
           } else if (snapshot.hasError) {

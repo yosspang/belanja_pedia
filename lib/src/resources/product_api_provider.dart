@@ -16,6 +16,14 @@ class ProductApiProvider {
     return productsList;
   }
 
+  Future getProductByCategories(String type) async {
+    http.Response response =
+        await http.get("http://belanja-pedia-api.herokuapp.com/api/categories/$type");
+    String products = response.body;
+    final productsList = productsFromJson(products);
+    return productsList;
+  }
+
   Future addToCart(String email, int productId) async {
     final id = productId.toString();
     print('di product api provider $id email $email');

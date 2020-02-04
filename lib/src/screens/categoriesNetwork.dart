@@ -3,23 +3,28 @@ import 'package:belanja_pedia/src/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/product_row_item.dart';
+import 'categories.dart';
 
-class ProductListTab extends StatelessWidget {
+class CategoriesNetwork extends StatelessWidget {
+  CategoriesNetwork({this.categories, this.user});
+  final categories;
+  final user;
   @override
   Widget build(BuildContext context) {
     ProductsBloc productsBloc = ProductsBloc();
-    Stream products = productsBloc.productsList;
+    Stream products = productsBloc.getProductByCategories(categories);
+    print('email di categories network $user');
 
     return StreamBuilder<List<Products>>(
       stream: products,
-      builder: (context, snapshot) {
-        if(snapshot.hasError) print(snapshot.error);
-        return snapshot.hasData 
-          ? new ProductRowItem(product: snapshot.data, length: snapshot.data.length)
-          : new Center(child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.green),
-          ));
+      builder: (BuildContext context, AsyncSnapshot<List<Products>> snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+            return Categories(categories: snapshot.data, length: snapshot.data.length, type: categories, user: user);
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          return Center(child: CircularProgressIndicator());
       },
     );
   }

@@ -12,6 +12,10 @@ class ProductsBloc {
     yield await _repository.fetchProducts();
   }
 
+  Stream<List<Products>> getProductByCategories(String type) async* {
+    yield await _repository.getProductByCategories(type);
+  }
+
   Stream<List<Products>> cartList(email) async* {
     print('di cart bloc email: $email');
     yield await _repository.getCarts(email);
